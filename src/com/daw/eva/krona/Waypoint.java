@@ -1,7 +1,7 @@
 package com.daw.eva.krona;
 
-//import Llibreries.Cadena;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class Waypoint {
 		tempsInicial = System.nanoTime();
 		for(int i = 0; i < numObjACrear; i++) {
 			//comprovacioRendimentTmp.llistaArrayList.add(new Waypoint_Dades(0, "Òrbita de la Terra", coordenadesTmp, true, LocalDateTime.parse("15-08-1954 00:01", formatter), null, null));
-			//ALERTA!!!: coordenadesTmp ÉS 1 OBJECTE (l'hem creat amb un new()) COMPARTIT PER TOTS ELS Waypoint_Dades QUE CREEM PERQUE
+			//coordenadesTmp ÉS 1 OBJECTE (l'hem creat amb un new()) COMPARTIT PER TOTS ELS Waypoint_Dades QUE CREEM PERQUE
 			//CADA VEGADA QUE EL COPIEM EN UN OBJECTE DE TIPUS Waypoint EN REALITAT ESTEM COPIANT UNA REFERÈNCIA A L'OBJECTE I NO L'OBJECTE EN SI.
 			//SOLUCIÓ:
 			comprovacioRendimentTmp.llistaArrayList.add(new Waypoint_Dades(0, "Òrbita de la Terra", new int[] {0,0,0}, true, LocalDateTime.parse("15-08-1954 00:01", formatter), null, null));
@@ -55,7 +55,8 @@ public class Waypoint {
 		tempsFinal = System.nanoTime();
 		tempsEnNanosegons = tempsFinal - tempsInicial;
 		tempsEnMilisegons = TimeUnit.MILLISECONDS.convert(tempsEnNanosegons, TimeUnit.NANOSECONDS);
-		// A partir de java 9 hi ha: Duration.ofNanos(tempsEnNanosegons).toSeconds();
+		// A partir de java 9 hi ha: 
+		//System.out.println(Duration.ofNanos(tempsEnNanosegons).toSeconds());
 		System.out.println("Temps per a insertar " + numObjACrear + " waypoints en l'ArrayList: " + tempsEnMilisegons);
 		 
 		
@@ -149,22 +150,44 @@ public class Waypoint {
 		for(int i = 0; i < comprovacioRendimentTmp.llistaArrayList.size(); i++) {
 			idsPerArrayList.add(i);
 		}
-		System.out.println("S'ha inicialitzat la llista idsPerArrayList amb " + idsPerArrayList.size() + " elements.");
-		System.out.println("El 1r element té el valor: " + idsPerArrayList.get(0));
+		System.out.println("S'ha inicialitzat la llista idsPerArrayList amb " + idsPerArrayList.size() + " elements."); //10
+		System.out.println("El 1r element té el valor: " + idsPerArrayList.get(0));    //0
 		ultimaPosicio = idsPerArrayList.size() - 1;
-		System.out.println("L'últim element té el valor: " + idsPerArrayList.get(ultimaPosicio));
+		System.out.println("L'últim element té el valor: " + idsPerArrayList.get(ultimaPosicio));  //9
 		
 		
-		System.out.println();
-		System.out.println("---- APARTAT 2 ----");
-		for(int i = 0; i < idsPerArrayList.size(); i++) {
-			System.out.println("ABANS DEL CANVI: comprovacioRendimentTmp.llistaArrayList.get(" + i + ").getId(): " + comprovacioRendimentTmp.llistaArrayList.get(i).getId());
+//		System.out.println();
+//		System.out.println("---- APARTAT 2 amb for + index ----");
+//		for(int i = 0; i < idsPerArrayList.size(); i++) {
+//			System.out.println("ABANS DEL CANVI: comprovacioRendimentTmp.llistaArrayList.get(" + i + ").getId(): " + comprovacioRendimentTmp.llistaArrayList.get(i).getId());
+//			
+//			comprovacioRendimentTmp.llistaArrayList.get(i).setId(idsPerArrayList.get(i).intValue());
+//			
+//			System.out.println("DESPRÉS DEL CANVI: comprovacioRendimentTmp.llistaArrayList.get(" + i + ").getId(): " + comprovacioRendimentTmp.llistaArrayList.get(i).getId());
+//			System.out.println();
+//		}
+		
+		
+		System.out.println("------- APARTAT 2 amb for each - demana enunciat --------");
+		// Modifiquem els ID's dels waypoints per a donar-los els valors de la llista
+		// idsPerArrayList
+		int index=0;
+		for (Integer element : idsPerArrayList) {
+			// Abans del canvi d'Id
+			System.out.println("ABANS DEL CANVI element: comprovacioRendimentTmp.llistaArrayList.get(" + element + ").getId(): "
+					+ comprovacioRendimentTmp.llistaArrayList.get(element).getId());
 			
-			comprovacioRendimentTmp.llistaArrayList.get(i).setId(idsPerArrayList.get(i).intValue());
-			
-			System.out.println("DESPRÉS DEL CANVI: comprovacioRendimentTmp.llistaArrayList.get(" + i + ").getId(): " + comprovacioRendimentTmp.llistaArrayList.get(i).getId());
+			System.out.println("ABANS DEL CANVI i: comprovacioRendimentTmp.llistaArrayList.get(" + element + ").getId(): "
+					+ comprovacioRendimentTmp.llistaArrayList.get(index).getId());
+			index++;
+			// Canviem l'id
+			comprovacioRendimentTmp.llistaArrayList.get(element).setId(element);
+			// Després del canvi d'Id
+			System.out.println("DESPRÉS DEL CANVI: comprovacioRendimentTmp.llistaArrayList.get(" + element
+					+ ").getId(): " + comprovacioRendimentTmp.llistaArrayList.get(element).getId());
 			System.out.println();
 		}
+		
 		
 		
 		System.out.println();

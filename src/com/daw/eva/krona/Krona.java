@@ -24,6 +24,7 @@ package com.daw.eva.krona;
 	    }
 	    
 	    
+	    
 	    public static void menuKrona() throws IOException  {
 	        String opcio;
 	        Scanner sc = new Scanner(System.in);
