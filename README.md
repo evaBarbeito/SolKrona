@@ -1,2 +1,2 @@
-# SolKrona
+# Krona List
 Solució Krona List
