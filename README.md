@@ -1,0 +1,2 @@
+# SolKrona
+Solució Krona List
